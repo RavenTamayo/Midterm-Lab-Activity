@@ -1,0 +1,67 @@
+<template>
+  <nav>
+      <v-toolbar app class="bg-green-lighten-2">
+       <v-app-bar-nav-icon @click='toggleDrawer'></v-app-bar-nav-icon>
+      <v-toolbar-title >
+        <span class="font-weight-light">Midterm </span>
+        <span>Laboratory 1</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      
+        <span class="me-2 font-weight-medium text-grey-darken-3">RAVEN TAMAYO</span>
+        <v-avatar
+          color="grey-lighten-3"
+          size="40px"
+        >
+          <v-img
+            src="src\views\me.jpg"
+            >
+          </v-img>
+        </v-avatar>
+        <v-icon right>exit_to_app</v-icon>
+      
+      
+      
+      </v-toolbar>
+      <v-navigation-drawer app v-model="drawer" class="mt-2" >
+     
+      <div class="text-h4 ml-5 mt-2 mb-2 font-weight-black text-green-lighten-1"> 
+        <v-icon
+        >
+        mdi-vuetify
+      </v-icon>Menu</div>
+       <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          router 
+          :to="item.path" :prepend-icon="item.icon"
+          height="100px">
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          
+        </v-list-item>
+      
+     </v-navigation-drawer>
+  </nav>
+</template>
+
+<script setup>
+  import { ref } from 'vue'
+    
+  const drawer = ref(false)
+
+  const  items =  ref([
+           { title: 'Simple Calculator', icon: 'mdi-calculator', path: '/basicMath' },
+           { title: 'String Manipulator', icon: 'mdi-format-text', path: '/stringApp'},
+           { title: 'About Raven Tamayo', icon: 'mdi-account-circle-outline', path: '/aboutMe'},
+           { title: 'About Vuetify', icon: 'mdi-vuetify', path: '/aboutVuetify'},
+           { title: 'Axios Quiz App', icon: 'mdi-chat-question', path: '/axios'},
+        ])
+
+ function toggleDrawer(){
+  return drawer.value = !drawer.value
+ }
+
+
+
+ 
+</script>
