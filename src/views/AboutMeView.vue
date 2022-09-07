@@ -1,10 +1,11 @@
 <template>
     <v-container>
         <v-img
-            src="src\views\me.jpg"
+            src="https://cdn.discordapp.com/attachments/1017009278445432862/1017009453033332836/me.jpg"
             height="150"
             width="150"
             class="rounded-circle"
+            cover
         >
         
         </v-img>

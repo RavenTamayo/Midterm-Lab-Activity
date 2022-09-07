@@ -14,7 +14,7 @@
           size="40px"
         >
           <v-img
-            src="src\views\me.jpg"
+            src="https://cdn.discordapp.com/attachments/1017009278445432862/1017009453033332836/me.jpg"
             >
           </v-img>
         </v-avatar>

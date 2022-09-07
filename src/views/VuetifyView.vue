@@ -2,10 +2,11 @@
     <v-container>
 
             <v-img
-                src="src\views\veutify.png"
-                height="80"
-                width="80"
+                src="https://cdn.discordapp.com/attachments/1017009278445432862/1017009453469532180/veutify.png"
+                height="100"
+                width="100"
                 class="ml-2"
+                cover
             ></v-img>
             <h1 class="mb-2">All About Veutify</h1>
             <v-expansion-panels variant="popout">
