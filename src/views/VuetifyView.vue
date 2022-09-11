@@ -7,8 +7,9 @@
                 width="100"
                 class="ml-2"
                 cover
+                ml-4
             ></v-img>
-            <h1 class="mb-2">All About Veutify</h1>
+            <h1 class="mb-2 ml-4">About Veutify</h1>
             <v-expansion-panels variant="popout">
                 <v-expansion-panel>
                     <v-expansion-panel-title ><span class="font-weight-black">What is Vuetify?</span> </v-expansion-panel-title>

@@ -4,6 +4,8 @@ import StringAppView from '../views/StringAppView.vue'
 import VuetifyView from '../views/VuetifyView.vue'
 import AboutMe from '../views/AboutMeView.vue'
 import AxiosQuiz from '../views/AxiosView.vue'
+import About from '../views/AboutView.vue'
+
 
 
 
@@ -29,17 +31,22 @@ const router = createRouter({
       path: '/aboutVuetify',
       name: 'aboutVuetify',
       component: VuetifyView
-      },
-      {
-        path: '/aboutMe',
-        name: 'aboutMe',
-        component: AboutMe
-        },
-        {
-          path: '/axios',
-          name: 'axios',
-          component: AxiosQuiz
-          },
+    },
+    {
+      path: '/aboutMe',
+      name: 'aboutMe',
+      component: AboutMe
+    },
+    {
+      path: '/axios',
+      name: 'axios',
+      component: AxiosQuiz
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
+    },
 
   ]
 })

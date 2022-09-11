@@ -6,7 +6,7 @@
             <v-col cols="auto"><v-btn 
                 @click="showQuestions"
                 class="bg-green-lighten-3"
-                >New Quiz</v-btn></v-col>
+                >Take Quiz</v-btn></v-col>
             <v-spacer></v-spacer>
         </v-row>
         <v-row>

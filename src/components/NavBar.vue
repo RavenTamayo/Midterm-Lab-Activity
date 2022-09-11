@@ -4,7 +4,7 @@
        <v-app-bar-nav-icon @click='toggleDrawer'></v-app-bar-nav-icon>
       <v-toolbar-title >
         <span class="font-weight-light">Midterm </span>
-        <span>Laboratory 1</span>
+        <span>Project</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       
@@ -23,9 +23,9 @@
       
       
       </v-toolbar>
-      <v-navigation-drawer app v-model="drawer" class="mt-2" >
+      <v-navigation-drawer app v-model="drawer" class="" >
      
-      <div class="text-h4 ml-5 mt-2 mb-2 font-weight-black text-green-lighten-1"> 
+      <div class="text-h4 ml-8 mt-4 mb-2 font-weight-black text-green-lighten-1"> 
         <v-icon
         >
         mdi-vuetify
@@ -52,9 +52,10 @@
   const  items =  ref([
            { title: 'Simple Calculator', icon: 'mdi-calculator', path: '/basicMath' },
            { title: 'String Manipulator', icon: 'mdi-format-text', path: '/stringApp'},
-           { title: 'About Raven Tamayo', icon: 'mdi-account-circle-outline', path: '/aboutMe'},
+           { title: 'Quiz App', icon: 'mdi-brain', path: '/axios'},
            { title: 'About Vuetify', icon: 'mdi-vuetify', path: '/aboutVuetify'},
-           { title: 'Axios Quiz App', icon: 'mdi-chat-question', path: '/axios'},
+           { title: 'About Raven Tamayo', icon: 'mdi-account-circle-outline', path: '/aboutMe'},
+           { title: 'About the Apps', icon: 'mdi-information', path: '/about'},
         ])
 
  function toggleDrawer(){

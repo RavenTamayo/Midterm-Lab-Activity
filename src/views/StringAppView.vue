@@ -1,6 +1,6 @@
 <template>
-     <v-container class="w-50">
-          <div class="bg-blue-lighten-3 pa-5 rounded">
+     <v-container>
+          <div class="bg-green-lighten-2 pa-5 rounded">
                <div class="text-h4 mb-3">String Manipulator</div>
                <v-row>
                     <v-col cols="10">
