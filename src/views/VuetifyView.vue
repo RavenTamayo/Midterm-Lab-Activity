@@ -1,6 +1,6 @@
 <template>
     <v-container>
-
+        <v-card color="rgb(255, 255, 255, 0.3)" class="pa-9 mt-5">
             <v-img
                 src="https://cdn.discordapp.com/attachments/1017009278445432862/1017009453469532180/veutify.png"
                 height="100"
@@ -9,8 +9,8 @@
                 cover
                 ml-4
             ></v-img>
-            <h1 class="mb-2 ml-4">About Veutify</h1>
-            <v-expansion-panels variant="popout">
+            <h1 class="mb-2 ml-4 text-white">About Veutify</h1>
+            <v-expansion-panels variant="accordion">
                 <v-expansion-panel>
                     <v-expansion-panel-title ><span class="font-weight-black">What is Vuetify?</span> </v-expansion-panel-title>
                     <v-expansion-panel-text>Vuetify is a complete UI framework built on top of Vue.js. The goal of the project is to provide developers with the tools they need to build rich and engaging user experiences. Unlike other frameworks, Vuetify is designed from the ground up to be easy to learn and rewarding to master with hundreds of carefully crafted components from the Material Design specification.
@@ -68,7 +68,7 @@
                         </v-expansion-panel-text>
                 </v-expansion-panel>
             </v-expansion-panels>
-          
+        </v-card>
        
         
     </v-container>

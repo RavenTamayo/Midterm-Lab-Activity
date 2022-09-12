@@ -1,12 +1,12 @@
 
 <template>
 <v-container>
-  <div class="bg-green-lighten-2 pa-5 rounded">
-    <div class="text-h4">Simple Calculator</div>
+  <v-card color="rgb(255, 255, 255, 0.3)" class="pa-6 mt-5">
+    <div class="text-h4 text-white">Simple Calculator</div>
     <br>
         <v-text-field label="First Input" v-model.number="fNumber" type="number" variant="solo"></v-text-field>
         <v-text-field label="Second Input" v-model.number="sNumber" type="number" variant="solo"></v-text-field>
-        <div class="text-caption mb-2">Operations:</div>
+        <div class="text-caption mb-2 text-white">Operations:</div>
         <v-row justify="start">
           <v-col cols="auto"> <v-btn @click="doSum" class="mr-3 bg-grey-lighten-2">+</v-btn></v-col>
           <v-col cols="auto"><v-btn @click="doDiff" class="mr-3 bg-grey-lighten-2">-</v-btn></v-col>
@@ -20,8 +20,9 @@
             label="Result"
             readonly
             variant="outlined"
+            class="text-white font-weight-bold"
           ></v-text-field>
-  </div>
+  </v-card>
    
 </v-container>
  </template>

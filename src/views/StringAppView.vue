@@ -1,7 +1,7 @@
 <template>
      <v-container>
-          <div class="bg-green-lighten-2 pa-5 rounded">
-               <div class="text-h4 mb-3">String Manipulator</div>
+          <v-card color="rgb(255, 255, 255, 0.3)" class="pa-6 mt-5">
+               <div class="text-h4 mb-3 text-white">String Manipulator</div>
                <v-row>
                     <v-col cols="10">
                          <v-text-field
@@ -30,6 +30,7 @@
                               readonly
                               variant="outlined"
                               v-model="vowelCount"
+                              class="text-white font-weight-medium"
                          ></v-text-field>
                     </v-col>
                     <v-col>
@@ -38,6 +39,7 @@
                               readonly
                               variant="outlined"
                               v-model="allUpper"
+                              class="text-white font-weight-medium"
                          ></v-text-field>
                     </v-col>
                </v-row>
@@ -48,6 +50,7 @@
                               readonly
                               variant="outlined"
                               v-model="allLower"
+                              class="text-white font-weight-medium"
                          ></v-text-field>
                     </v-col>
                     <v-col>
@@ -56,10 +59,11 @@
                               readonly
                               variant="outlined"
                               v-model="vowelReplace"
+                              class="text-white font-weight-medium"
                          ></v-text-field>
                     </v-col>
                </v-row>
-          </div> 
+          </v-card> 
      </v-container>
    
 
