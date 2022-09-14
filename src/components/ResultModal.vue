@@ -4,6 +4,7 @@
         <div class="modal-wrapper">
           <div class="modal-container">
             <div class="modal-header">
+              <!--Message for the Modal-->
               <div v-if="failCheck()" class="text-h4 font-weight-bold text-green-lighten-1">Congratulations!
                 <br>
                 <span class="text-body-1 font-weight-black">You passed the quiz.</span>

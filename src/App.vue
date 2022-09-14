@@ -1,6 +1,13 @@
 <template>
    <v-app>
     <v-main id="main">
+      <v-btn
+            @click="handleSignOut"
+            color="error"
+            v-if="isLoggedIn"
+            >
+            Sign Out
+          </v-btn>
        <Navbar/>
        <router-view></router-view>
     </v-main>

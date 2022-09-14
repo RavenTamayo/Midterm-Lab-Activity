@@ -7,6 +7,13 @@
         <span>Project</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+          <v-btn
+            @click="handleSignOut"
+            color="white"
+            v-if="isLoggedIn"
+            >
+            Sign Out
+          </v-btn>
       <v-menu>
         <template v-slot:activator="{ props }">
           <v-btn icon v-bind="props">
@@ -43,7 +50,11 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import { onMounted, ref } from 'vue'
+  import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"
+  import { useRouter } from "vue-router";
+  const router = useRouter();
+  const isLoggedIn = ref(false)
     
   const drawer = ref(false)
 
@@ -60,7 +71,23 @@
   return drawer.value = !drawer.value
  }
 
+ let auth
+  onMounted(()=>{
+    auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      if(user) {
+        isLoggedIn.value=true
+      } else {
+        isLoggedIn.value=false
+      }
+    })
+  })
 
+  const handleSignOut = () => {
+    signOut(auth).then(()=>{
+      router.push('/login')
+    })
+  }
 
  
 </script>
