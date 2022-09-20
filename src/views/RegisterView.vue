@@ -1,66 +1,115 @@
 <template>
-    <v-container fluid>
-        <v-row>
-            <v-spacer></v-spacer>
-            <v-col cols="5">
-                <v-card class="pa-6" color="rgb(255, 255, 255, 0.3)">
-                    <div class="text-h4 text-white mb-5">Register Account</div>
-                    <v-text-field
-                    variant="solo"
-                    label="Email"
-                    type="email"
-                    v-model="email"
-                    ></v-text-field>
+  <v-container fluid>
+    <v-row>
+      <v-spacer></v-spacer>
+      <v-col cols="6">
+        <v-card
+        min-width="300"
+        class="pa-6"
+        color="rgb(255, 255, 255, 0.3)"
+        >
+        <div class="text-h4 text-white mb-2">Register</div>
+        <v-form 
+          @submit.prevent="Register"
+        >
+          <!--Username textfield-->
+          <v-text-field
+            class=""
+            variant="solo"
+            label="Username"
+            v-model="name"
+            type="name"
+            :rules="[rules.required]"
+          ></v-text-field>
+          
+          <!--Email textfield-->
+          <v-text-field
+          class=""
+          variant="solo"
+          label="E-mail"
+          v-model="email"
+          type="email"
+          :rules="[rules.required, rules.email]"
+          >
+          </v-text-field>
 
-                    <v-text-field
-                    variant="solo"
-                    label="Password"
-                    type="password"
-                    v-model="password"
-                    ></v-text-field>    
-                    <v-btn
-                    color="success"
-                    class="mr-4"
-                    @click="register"
-                    >Create Account</v-btn>
-                    <v-btn
-                    variant="plain"
-                    class="mr-4 text-white"
-                    to="/login"
-                    >Already have an acccount?</v-btn>
+          <!--Password Textfield-->
+          <v-text-field
+            class=""
+            variant="solo"
+            label="Password"
+            type="password"
+            v-model="password"
+            :rules="[rules.required]"
+          >
+          </v-text-field>
 
-                </v-card>
-            </v-col>
-            <v-spacer></v-spacer>
-        </v-row>
-    </v-container>
-</template>
+          <!--Error message-->
+          <div v-if="error" class="text-white bg-red mb-3 rounded pa-2">{{error}}</div>
 
-<script setup>
-import { ref } from "vue"
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider,signInWithPopup} from "firebase/auth"
-import { useRouter } from 'vue-router'
-import router from "../router";
-const email = ref("");
-const password = ref("");
-const register = () => {
+          <!--Submit Button-->
+          <v-btn
+          type="submit"
+          color="success"
+          >
+          Register
+          </v-btn>
 
-    createUserWithEmailAndPassword(getAuth(),email.value,password.value)
-    .then((data)=>{
-        console.log("Successfully Registered")
-        router.push('/') //redirect to home
-    })
-};
-
-const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(getAuth(), provider)
-        .then((result)=>{
-            console.log(result.user);
-            router.push("/");
-        })
-        .catch((error)=>{
-
-        });
-};
-</script>
+          <!--Login Link-->
+          <v-btn
+          variant="plain"
+          color="white"
+          to='/login'
+          >
+          Already have an account?
+          </v-btn>
+        </v-form>
+        </v-card>
+      </v-col>
+      <v-spacer></v-spacer>
+    </v-row>
+  </v-container>
+  </template>
+  
+  
+  <script>
+  import { ref } from 'vue'
+  import { useStore } from 'vuex'
+  import { useRouter } from 'vue-router'
+  export default {
+    data () {
+      return {
+        rules: {
+          required: value => !!value || 'Required.',
+          counter: value => value.length <= 20 || 'Max 20 characters',
+          email: value => {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return pattern.test(value) || 'Invalid e-mail.'
+          },
+        },
+      }
+    },
+   setup() {
+      const name = ref('')
+      const email = ref('')
+      const password = ref('')
+      const error = ref(null)
+      const store = useStore()
+      const router = useRouter()
+      const Register = async () => {
+        try {
+          await store.dispatch('register', {
+            email: email.value,
+            password: password.value,
+            name: name.value
+          })
+          router.push('/')
+        }
+        catch (err) {
+          error.value = err.message
+              }
+      }
+      return { Register, name,email, password, error }
+    }
+  };
+  </script>

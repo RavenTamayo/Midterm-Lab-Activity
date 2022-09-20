@@ -10,7 +10,8 @@
         >
         
         </v-img>
-        <div class="text-h4 ml-4 text-white">Raven Tamayo</div>
+        <div class="text-h4 ml-4 text-white">Raven Tamayo </div>
+        <span class="text-caption text-white ml-4">Developer</span>
         <v-divider class="mt-1 mb-2 mx-4" color="white"></v-divider>
         <div class="text-caption ml-4 text-white"><v-icon class="mr-2">mdi-school-outline</v-icon>Technological Institute of the Philippines</div>
         <div class="text-caption ml-4 text-white"><v-icon class="mr-2">mdi-script-outline</v-icon>Bachelor of Science in Information Technology</div>

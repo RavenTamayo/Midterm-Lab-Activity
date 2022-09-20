@@ -1,91 +1,94 @@
 <template>
-    <v-container fluid>
-        <v-row>
-            <v-spacer></v-spacer>
-            <v-col cols="5">
-                <v-card class="pa-6" color="rgb(255, 255, 255, 0.3)">
-                    <div class="text-h4 text-white mb-5">Login Account</div>
-                    <v-text-field
-                    variant="solo"
-                    label="Email"
-                    type="email"
-                    v-model="email"
-                    ></v-text-field>
+  <v-container fluid>
+    <v-row>
+      <v-spacer></v-spacer>
+      <v-col cols="6"> 
+        <v-card
+        min-width="300"
+      class="pa-6"
+      color="rgb(255, 255, 255, 0.3)"
+      >
+    <div class="text-h4 text-white mb-2">Login</div>
+      <v-form
+        @submit.prevent="Login"
+      >
+      <!--Email-->
+        <v-text-field
+        variant="solo"
+        label="E-mail"
+        type="email"
+        v-model="email"
+        :rules="[rules.required, rules.email]"
+        ></v-text-field>
 
-                    <v-text-field
-                    variant="solo"
-                    label="Password"
-                    type="password"
-                    v-model="password"
-                    ></v-text-field>    
-                    
-                    <div class="text-body-1 mb-2 ">{{errMsg}}</div>
+      <!--Password-->
+        <v-text-field
+        variant="solo"
+        label="Password"
+        type="password"
+        required
+        v-model="password"
+        ></v-text-field>
 
-                    <v-btn
-                    color="success"
-                    class="mr-4"
-                    @click="register"
-                    >Login</v-btn>
-                    <v-btn
-                    variant="plain"
-                    class="mr-4 text-white"
-                    to="/register"
-                    >Dont have an account?</v-btn>
+        <!--Error Message-->
+        <div v-if="error" class="text-white bg-red mb-3 rounded pa-2">{{error}}</div>
 
-                    <!-- <v-btn
-                    color="success"
-                    @click="signInWithGoogle"
-                    >Sign in with Google
-                    <v-icon class="ml-2">mdi-google</v-icon>
-                </v-btn> -->
-                </v-card>
-            </v-col>
-            <v-spacer></v-spacer>
-        </v-row>
-    </v-container>
-</template>
+      <!--Login Button-->
+        <v-btn
+        color="success"
+        type="submit"
+        >Login</v-btn>
 
-<script setup>
-import { ref } from "vue"
-import { getAuth, signInWithEmailAndPassword} from "firebase/auth"
-import { useRouter } from 'vue-router'
-import router from "../router"
-const email = ref("")
-const password = ref("")
-const errMsg = ref()
-const register = () => {
-
-    const auth = getAuth()
-    signInWithEmailAndPassword(auth, email.value, password.value)
-    .then((data)=>{
-        //alert("Successfully Signed in")
-        errMsg.value="Successfully Logged In"
-        console.log(auth.currentUser)
-        router.push('/') //redirect to home
-    })
-    .catch((error)=>{
-        console.log(error.code)
-        switch (error.code){
-            case "auth/invalid-email":
-                errMsg.value = "Invalid E-mail"
-                break
-            
-            case "auth/user-not-found":
-                errMsg.value = "That email is not registered yet"
-                break
-
-            case "auth/wrong-password":
-                errMsg.value = "Incorrect Password"
-                break
-
-            default:
-                errMsg.value = "Invalid E-mail or  Incorrect Password"
-                break;
+      <!--Register Link-->
+        <v-btn
+        color="white"
+        variant="plain"
+        to='/register'
+        >Don't have and account yet?</v-btn>
+      </v-form>
+    </v-card></v-col>
+      <v-spacer></v-spacer>
+    </v-row>
+  </v-container>>
+   
+  </template>
+  
+  <script>
+  import { ref } from 'vue'
+  import { useStore } from 'vuex'
+  import { useRouter } from 'vue-router'
+  export default {
+    data () {
+      return {
+        rules: {
+          required: value => !!value || 'Required.',
+          counter: value => value.length <= 20 || 'Max 20 characters',
+          email: value => {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return pattern.test(value) || 'Invalid e-mail.'
+          },
+        },
+      }
+    },
+      setup() {
+      const email = ref('')
+      const password = ref('')
+      const error = ref(null)
+      const store = useStore()
+      const router = useRouter()
+      const Login = async () => {
+        try {
+          await store.dispatch('logIn', {
+            email: email.value,
+            password: password.value
+          })
+          router.push('/')
         }
-    })
-};
-
-const signInWithGoogle = () => {
-
-}
-</script>
+        catch (err) {
+          error.value = err.message
+        }
+      }
+      return { Login, email, password, error }
+    }
+  };
+  </script>

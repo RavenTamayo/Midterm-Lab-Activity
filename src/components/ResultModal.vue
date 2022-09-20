@@ -59,7 +59,7 @@
 
     methods: {
         failCheck(){
-            if(this.score.correctlyAnsweredQuestions < 5){
+            if(this.score.correctlyAnsweredQuestions < 3){
                 return false;
             }
             else return true;

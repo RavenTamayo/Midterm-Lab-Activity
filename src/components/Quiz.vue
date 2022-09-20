@@ -19,6 +19,14 @@
         ></button>
       </form>
         </v-card>
+        <v-btn
+        height="50"
+        class="bg-green text-white font-weight-bold text-h6 mt-2"
+        to="/results"
+        >
+        <v-icon>mdi-history</v-icon>
+        View Quiz History
+        </v-btn>
             </v-col>
             <v-spacer></v-spacer>
         </v-row>
@@ -27,12 +35,42 @@
   
   <script>
 import axios from 'axios';
+import { useStore} from "vuex";
+import { useRouter } from "vue-router";
+import {computed} from "vue";
+import { auth } from '../firebase'
+import DataService from '../services/DataService';
   export default {
+    setup() {
+    const admin = DataService.isAdmin()
+    const store = useStore()
+    const router = useRouter()
+    auth.onAuthStateChanged(user => {
+      store.dispatch("fetchUser", user);
+    });
+    const user = computed(() => {
+      return store.getters.user;
+    });
+    const signOut = async () => {
+          await store.dispatch('logOut')
+          router.push('/login')
+    }
+      return {user,signOut,admin}
+   },
+
     data() {
       return {
         questions: [],
         loading: true,
         index: 0,
+        timeTake: "",
+            History: {
+                questionCount:"",
+                correctAnswers:"",
+                averageScore: "",
+                timeTaken: "",
+                timeFinished: "",
+            },
       };
     },
     computed: {
@@ -101,16 +139,42 @@ import axios from 'axios';
       quizCompleted(completed) {
         completed &&
           setTimeout(() => {
+            this.saveHistory()
             this.$emit("quiz-completed", this.score);
           }, 3000);
       },
     },
     methods: {
+      //Saves Quiz Results tas lalagay daw sa database
+      saveHistory() {
+            const today = new Date();
+            var data = {
+                questionCount: this.score.allQuestions,
+                correctAnswers: this.score.correctlyAnsweredQuestions,
+                averageScore: Math.floor(
+                    (this.score.correctlyAnsweredQuestions / this.score.allQuestions) *
+                    100
+                ) + "%",
+                timeTaken: this.timeTake,
+                timeFinished: today.toGMTString(),
+            };
+            DataService.create(data)
+                .then(() => {
+                    this.submitted = true;
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        },
+
       async fetchQuestions() {
+        var today = new Date()
+        this.timeTake = today.toGMTString()
+
         this.loading = true;
         //fetching questions from AXIOS api
         let {data} = await axios.get(
-          "https://opentdb.com/api.php?amount=10&category=31&type=multiple"
+          "https://opentdb.com/api.php?amount=5&category=31&type=multiple"
         );
         let index = 0;
         let questions = data.results.map((question) => {

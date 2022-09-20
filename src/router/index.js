@@ -7,38 +7,26 @@ import AxiosQuiz from '../views/AxiosView.vue'
 import About from '../views/AboutView.vue'
 import Register from '../views/RegisterView.vue'
 import Login from '../views/LoginView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import {getAuth, onAuthStateChanged } from 'firebase/auth'
-
-
-
+import QuizResults from '../views/QuizResultsView.vue'
+import Dashboard from '../views/DashboardView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: BasicMathView,
-      meta:{
-        requiresAuth:true
-      }
+      name: 'dashboard',
+      component: Dashboard,
     },
     {
       path: '/stringApp',
       name: 'StringAppView',
       component: StringAppView,
-      meta:{
-        requiresAuth:true
-      }
     },
     {
     path: '/basicMath',
     name: 'basicMath',
     component: BasicMathView,
-    meta:{
-      requiresAuth:true
-    }
     },
     {
       path: '/aboutVuetify',
@@ -49,17 +37,11 @@ const router = createRouter({
       path: '/aboutMe',
       name: 'aboutMe',
       component: AboutMe,
-      meta:{
-        requiresAuth:true
-      }
     },
     {
       path: '/axios',
       name: 'axios',
       component: AxiosQuiz,
-      meta:{
-        requiresAuth:true
-      }
     },
     {
       path: '/about',
@@ -76,31 +58,14 @@ const router = createRouter({
       name: 'register',
       component: Register
     },
+    {
+      path: '/results',
+      name: 'results',
+      component: QuizResults
+    },
+
 
   ]
 })
-const getCurrentUser = () => {
-  return new Promise((resolve,reject)=>{
-    const removeListener = onAuthStateChanged(
-      getAuth(),
-      (user) => {
-        removeListener();
-        resolve(user);
-      },
-      reject
-    );
-  });
-};
 
-router.beforeEach(async(to, from, next) =>{
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (await getCurrentUser()) {
-      next();
-    } else {
-      alert ("You Don't have access to this page! Please try logging in first")
-      next("/login");
-    }
-  }else 
-    next();
-});
 export default router
